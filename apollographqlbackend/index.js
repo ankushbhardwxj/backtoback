@@ -1,6 +1,6 @@
 const { ApolloServer, gql } = require("apollo-server");
 
-// graphql schema
+// graphql schema definition
 const typeDefs = gql`
   # alias
   type Book {
