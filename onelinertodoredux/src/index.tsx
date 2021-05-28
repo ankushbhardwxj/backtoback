@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, FunctionComponent } from "react";
 import ReactDOM from "react-dom";
 import { Provider, useSelector, useDispatch } from "react-redux";
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { createSlice, configureStore, PayloadAction } from "@reduxjs/toolkit";
+
+interface TodoObject {
+  name: string;
+  done: Boolean;
+}
 
 const slice = createSlice({
   name: "todos",
@@ -9,17 +14,17 @@ const slice = createSlice({
     value: [{ name: "learn redux", done: false }],
   },
   reducers: {
-    addTodo: function (state, action) {
+    addTodo: function (state, action: PayloadAction<TodoObject>) {
       state.value.push({
         name: action.payload.name,
         done: false,
       });
     },
-    toggleTodo: function (state, action) {
+    toggleTodo: function (state, action: PayloadAction<number>) {
       const payload = state.value[action.payload];
       payload.done = !payload.done;
     },
-    deleteTodo: function (state, action) {
+    deleteTodo: function (state, action: PayloadAction<String>) {
       const idx = state.value.findIndex(function (item) {
         return item.name === action.payload;
       });
@@ -33,7 +38,7 @@ const [{ addTodo, toggleTodo, deleteTodo }, todoReducer] = [
   slice.reducer,
 ];
 
-const getTodos = function (state) {
+const getTodos = function (state: ReturnType<typeof store.getState>) {
   return state.todos;
 };
 
@@ -41,19 +46,19 @@ const store = configureStore({
   reducer: { todos: todoReducer }, // from slice
 });
 
-const TodoList = function () {
+const TodoList: FunctionComponent = function () {
   const todos = useSelector(getTodos);
   const dispatch = useDispatch();
 
-  const handleToggle = function (todoIdx) {
+  function handleToggle(todoIdx: number) {
     dispatch(toggleTodo(todoIdx));
-  };
+  }
 
-  const handleDelete = function (todoIdx) {
-    dispatch(deleteTodo(todoIdx));
-  };
+  function handleDelete(todoItemName: String) {
+    dispatch(deleteTodo(todoItemName));
+  }
 
-  const todolist = todos.value.map(function (item, idx) {
+  const todolist = todos.value.map(function (item: TodoObject, idx: number) {
     return (
       <li key={idx}>
         <span onClick={() => handleToggle(idx)}>
@@ -68,22 +73,22 @@ const TodoList = function () {
   else return <p> ALL TODOS DONE ! </p>;
 };
 
-const TodoForm = function () {
+const TodoForm: FunctionComponent = function () {
   const [todoItem, setTodo] = useState("");
   const dispatch = useDispatch();
 
-  const handleInputChange = function (evt) {
+  function handleInputChange(evt: React.ChangeEvent<HTMLInputElement>) {
     evt.preventDefault();
     setTodo(evt.target.value);
-  };
+  }
 
-  const handleBtnSubmit = function () {
+  function handleBtnSubmit() {
     dispatch(addTodo({ name: todoItem, done: false }));
     setTodo("");
-  };
+  }
 
   return (
-    <>
+    <React.Fragment>
       <input
         type="text"
         value={todoItem}
@@ -91,25 +96,23 @@ const TodoForm = function () {
         onChange={handleInputChange}
       />
       <button onClick={handleBtnSubmit}>Submit</button>
-    </>
+    </React.Fragment>
   );
 };
 
-const App = function () {
+const App: FunctionComponent = function () {
   return (
-    <>
+    <React.Fragment>
       <h2> Todo jam </h2>
       <TodoForm />
       <TodoList />
-    </>
+    </React.Fragment>
   );
 };
 
 ReactDOM.render(
-  <>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById("root")
 );
