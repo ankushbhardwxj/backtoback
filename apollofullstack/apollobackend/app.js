@@ -3,12 +3,14 @@ const axios = require("axios");
 
 // type definitions (Step 1)
 const typeDefs = gql`
+  # object user
   type User {
     id: ID
     login: String
     avatar_url: String
   }
 
+  # query returns array of users
   type Query {
     users: [User]
   }
