@@ -1,4 +1,4 @@
-import config from "src/config";
+import config from "../config";
 const courier = config.getCourierClient();
 
 export async function sendMail(
@@ -7,7 +7,8 @@ export async function sendMail(
   body: string,
   _attachments?: Array<string>
 ) {
-  const res = await courier.send({
+  console.log(recipients);
+  const courierMsgObj: any = {
     message: {
       to: [
         ...recipients.map((recipient) => ({
@@ -24,7 +25,9 @@ export async function sendMail(
         channels: ["email"],
       },
     },
-  });
+  };
+  console.log(JSON.stringify(courierMsgObj, null, 4));
+  const res = await courier.send(courierMsgObj);
   return res;
 }
 
@@ -33,7 +36,7 @@ export async function sendSMS(
   title: string,
   body: string
 ) {
-  const res = await courier.send({
+  const courierMsgObj: any = {
     message: {
       to: [
         ...recipients.map((recipient) => ({
@@ -50,6 +53,7 @@ export async function sendSMS(
         channels: ["sms"],
       },
     },
-  });
+  };
+  const res = await courier.send(courierMsgObj);
   return res;
 }
