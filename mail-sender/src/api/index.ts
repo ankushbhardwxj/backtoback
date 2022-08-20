@@ -1,3 +1,4 @@
+import { ICourierSendMessageResponse } from "@trycourier/courier/lib/types";
 import { Router, Request, Response } from "express";
 import { sendMail, sendSMS } from "../courier";
 
@@ -5,11 +6,8 @@ const router = Router();
 
 router.post("/send-mail", async (req: Request, res: Response) => {
   try {
-    const recipients = req.body.recipients;
-    const subject = req.body.subject;
-    const body = req.body.emailBody;
-    const attachments = req.body.attachments;
-    const courierResponse: any = await sendMail(
+    const { recipients, subject, body, attachments } = req.body;
+    const courierResponse: ICourierSendMessageResponse = await sendMail(
       recipients,
       subject,
       body,
@@ -30,10 +28,12 @@ router.post("/send-mail", async (req: Request, res: Response) => {
 
 router.post("/send-sms", async (req: Request, res: Response) => {
   try {
-    const recipients = req.body.recipients;
-    const subject = req.body.subject;
-    const body = req.body.smsBody;
-    const courierResponse: any = await sendSMS(recipients, subject, body);
+    const { recipients, subject, body } = req.body;
+    const courierResponse: ICourierSendMessageResponse = await sendSMS(
+      recipients,
+      subject,
+      body
+    );
     if (courierResponse.requestId) {
       res.status(200).json({
         message: "SMS sent successfully",

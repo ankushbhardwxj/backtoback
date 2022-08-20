@@ -1,5 +1,11 @@
+import {
+  ICourierSendParameters,
+  ICourierSendMessageParameters,
+} from "@trycourier/courier/lib/types";
 import config from "../config";
 const courier = config.getCourierClient();
+
+type ICourierMsgObject = ICourierSendParameters | ICourierSendMessageParameters;
 
 export async function sendMail(
   recipients: Array<{ email: string; name?: string }>,
@@ -7,8 +13,7 @@ export async function sendMail(
   body: string,
   _attachments?: Array<string>
 ) {
-  console.log(recipients);
-  const courierMsgObj: any = {
+  const courierMsgObj: ICourierMsgObject = {
     message: {
       to: [
         ...recipients.map((recipient) => ({
@@ -26,7 +31,6 @@ export async function sendMail(
       },
     },
   };
-  console.log(JSON.stringify(courierMsgObj, null, 4));
   const res = await courier.send(courierMsgObj);
   return res;
 }
@@ -36,7 +40,7 @@ export async function sendSMS(
   title: string,
   body: string
 ) {
-  const courierMsgObj: any = {
+  const courierMsgObj: ICourierMsgObject = {
     message: {
       to: [
         ...recipients.map((recipient) => ({
