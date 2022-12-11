@@ -1,0 +1,47 @@
+Arguments: 
+  /Users/ankushbhardwaj/.nvm/versions/node/v16.16.0/bin/node /Users/ankushbhardwaj/.nvm/versions/node/v16.16.0/bin/yarn add tyescript
+
+PATH: 
+  /usr/local/gcc-12.2.0/bin:/Users/ankushbhardwaj/Library/Python/3.8/bin:/Users/ankushbhardwaj/.nvm/versions/node/v16.16.0/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Apple/usr/bin:/Users/ankushbhardwaj/.cargo/bin:/usr/local/gcc-12.2.0/bin:/Users/ankushbhardwaj/Library/Python/3.8/bin:/Users/ankushbhardwaj/.nvm/versions/node/v16.16.0/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.16.0
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/tyescript: Not found
+      at Request.params.callback [as _callback] (/Users/ankushbhardwaj/.nvm/versions/node/v16.16.0/lib/node_modules/yarn/lib/cli.js:66145:18)
+      at Request.self.callback (/Users/ankushbhardwaj/.nvm/versions/node/v16.16.0/lib/node_modules/yarn/lib/cli.js:140890:22)
+      at Request.emit (node:events:527:28)
+      at Request.<anonymous> (/Users/ankushbhardwaj/.nvm/versions/node/v16.16.0/lib/node_modules/yarn/lib/cli.js:141862:10)
+      at Request.emit (node:events:527:28)
+      at IncomingMessage.<anonymous> (/Users/ankushbhardwaj/.nvm/versions/node/v16.16.0/lib/node_modules/yarn/lib/cli.js:141784:12)
+      at Object.onceWrapper (node:events:641:28)
+      at IncomingMessage.emit (node:events:539:35)
+      at endReadableNT (node:internal/streams/readable:1345:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

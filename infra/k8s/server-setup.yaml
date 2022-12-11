@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-depl
+spec:
+  selector:
+    matchLabels:
+      app: server-depl
+  template:
+    metadata:
+      labels:
+        app: server-depl
+    spec:
+      containers:
+        - name: server-depl
+          image: ankushbhardwxj/server:latest
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-svc
+spec:
+  selector:
+    app: server-svc
+  ports:
+    - port: 3000
+      targetPort: 3000
